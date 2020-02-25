@@ -1,0 +1,180 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <h3>Chatter Box</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+      <p>Welcome <b style="font-weight: 600;">{{chatService.getLoggedInUser()}}</b></p>
+      <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse"
+                     aria-expanded="false" class="dropdown-toggle"
+                      style="font-size: 17px;">
+                      <b>Channels</b></a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+
+                        <ul class="list-unstyled components">
+      <span *ngFor="let room of rooms">
+
+
+        <li>
+          <a style="cursor:pointer" (click)="sendChannelMessage(room)">{{room}} </a>
+        </li>
+
+
+       </span>
+       <li>
+        <a  style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"  style="margin-right: 5px;"></i>Add a channel</a>
+      </li>
+                    </ul>
+
+                    </ul>
+
+                  </li>
+
+
+      <li>
+        <a style="font-size: 17px;"
+          ><b>Direct Messages</b><i
+            style="float: right; margin-top: 3px;cursor:pointer;"
+            class="fas fa-plus-circle"
+          ></i
+        ></a>
+      </li>
+      <!-- <ul class="list-unstyled components" >
+        <li><a>sdf</a></li>
+        <li><a>sdf</a></li>
+        <li><a>sdf</a></li>
+</ul> -->
+<ul class="list-unstyled components" >
+<span *ngFor="let user of Users">
+
+          <li *ngIf="user.username != chatService.getLoggedInUser() && chatService.getLoggedInUser() != null" (click)="sendData(user.username)">
+            <a style="cursor:pointer" ><i class="far fa-circle fa-xs"  style=" background-color: #27ae60; border-radius: 100px;"></i> {{ user.username }}</a>
+          </li>
+      </span>
+    </ul>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a
+          href="#pageSubmenu"
+          data-toggle="collapse"
+          aria-expanded="false"
+          class="dropdown-toggle"
+          >Pages</a
+        >
+        <ul class="collapse list-unstyled" id="pageSubmenu">
+          <li>
+            <a href="#">Page 1</a>
+          </li>
+          <li>
+            <a href="#">Page 2</a>
+          </li>
+          <li>
+            <a href="#">Page 3</a>
+          </li>
+        </ul>
+      </ul>
+      <li  style="text-decoration: none; list-style: none;">
+        <a (click)="onLogout()" *ngIf="userIsAuthenticated"><i class="fas fa-power-off" style="margin:0px 5px;"></i>Logout</a>
+      </li>
+      <hr>
+      <small style="margin:0px 5px;">&copy;Copyright Chatter Box</small>
+
+
+  </nav>
+
+  <!-- Page Content -->
+  <div id="content">
+
+
+    <nav class="navbar sticky-top  navbar-expand-lg navbar-light bg-light" style="color: #7386D5;">
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span></span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-align-justify"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Page</a>
+                    </li> -->
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" routerLink="/login" *ngIf="!userIsAuthenticated" >Login<i class="fas fa-sign-in-alt" style="margin-left: 5px;"></i></a>
+                    </li>
+                    <li  routerLinkActive="active"class="nav-item mr-">
+                        <a class="nav-link" routerLink="/register" *ngIf="!userIsAuthenticated" >Signup<i class="fas fa-user-plus" style="margin-left: 5px;"></i></a>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+    </nav>
+
+    <app-chatroom></app-chatroom>
+
+          <app-select></app-select >
+
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Channel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #users="ngForm" (submit)="addUsers(users)">
+
+      <div class="modal-body">
+        <!-- <label>Multiselect with custom bindings</label>
+        <ng-select [items]="sk"
+                   bindLabel="name"
+                   bindValue="name"
+                   [multiple]="true"
+                   placeholder="Select cities"
+                   [hideSelected]="true"
+                   [(ngModel)]="selectedPeople">
+        </ng-select>
+        <p>
+            Selected cities: {{selectedPeople}} -->
+        <!-- </p> -->
+        <label class="form-check-label" for="defaultCheck1">
+            Channel Name
+        </label>
+        <input class="form-control" type="text"  name="channelname" ngModel #channelname="ngModel" placeholder="Channel Name">
+        <a
+          href="#addusers"
+          data-toggle="collapse"
+          aria-expanded="false"
+          class="dropdown-toggle"
+          >Add Users</a
+        >
+        <div class="collapse list-unstyled"*ngFor="let user of Users;"  id="addusers">
+          <label class="form-check-label" for="defaultCheck1" *ngIf="user.username != chatService.getLoggedInUser()" >
+          <input class="form-ch8eck-input"  type="checkbox" [value]="user.username" name="users" ngModel (change)="checkbox(user.username, $event.target.checked )">
+           {{user.username}}
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

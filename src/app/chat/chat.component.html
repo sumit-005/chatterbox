@@ -1,0 +1,8 @@
+
+    <ul class="list-unstyled components" *ngFor="let user of Users">
+      <li *ngIf="user.username != chatService.getLoggedInUser()" (click)="sendData(user.username)">
+        <a>{{ user.username }}</a>
+      </li>
+    </ul>
+
+

@@ -1,0 +1,159 @@
+
+<div *ngIf="flag == 0">
+<div *ngIf="sk">
+<div id="mario-chat">
+  <h2>{{ username }}</h2>
+  <span><i *ngIf="isTyping" class="isTyping">typing...</i></span>
+  <div id="chat-window" #float [scrollTop]="float.scrollHeight"  >
+      <div *ngFor="let item of messageArray">
+          <p [class.userMessage] = "item.user == chatService.getLoggedInUser()" [class.secUserMessage]="item.user != chatService.getLoggedInUser()">
+            {{ item.message }}<small style="margin-left: 1rem;">{{item.time}}</small></p>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+  <input (keypress)="typing()" [(ngModel)]="message" name="message" (keyup.enter)="sendMessage()"
+  id="wage"
+   type="text" placeholder="Message" />
+    </div>
+  <div class="col-md-2">
+  <button id="send" (click)="sendMessage()"><i class="far fa-paper-plane"></i></button>
+  </div>
+  </div>
+</div>
+</div>
+
+</div>
+<div>
+
+</div>
+<div *ngIf="flag == 1">
+
+<div *ngIf="sk">
+  <div id="mario-chat">
+    <div class="row">
+      <div class="col">
+        <a  (click) = "change($event)"><h2>{{ channelName }}</h2></a>
+      </div>
+      <div class="col">
+    <i class="fas fa-ellipsis-h fa-3x"  style="cursor:pointer;float: right; padding: 0px 5px; margin-right: 5px;"></i>
+      </div>
+
+
+<div class="modal fade" id="exampleModal123" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    <span><i *ngIf="isTyping" class="isTyping">typing...</i></span>
+    <div id="chat-window" #float [scrollTop]="float.scrollHeight">
+        <div *ngFor="let item of channelmessageArray">
+         <p [class.userMessage] = "item.user == chatService.getLoggedInUser()" [class.secUserMessage]="item.user != chatService.getLoggedInUser()">
+              {{ item.message }}<small style="margin-left: 1rem;">{{item.time}}</small></p>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+    <input (keypress)="typing()" [(ngModel)]="message" name="message" (keyup.enter)="sendMessage()"
+    id="wage"
+     type="text" placeholder="Message" />
+      </div>
+    <div class="col-md-2">
+    <button id="send" (click)="sendChannelMessage()"><i class="far fa-paper-plane"></i></button>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div *ngIf="flag == 0">
+  <div *ngIf="sk">
+<div class="container clearfix">
+  <h2></h2>
+  <div class="chat">
+    <div class="chat-header clearfix">
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+
+      <div class="chat-about">
+        <div class="chat-with">Chat with {{ username }}</div>
+        <div class="chat-num-messages">already 1 902 messages</div>
+      </div>
+      <i class="fa fa-star"></i>
+    </div>
+
+    <div class="chat-history">
+      <ul>
+        <li class="clearfix">
+
+          <div *ngFor="let item of channelmessageArray">
+            <span [class.message-data align-right] = "item.user == chatService.getLoggedInUser()" [class.message-data]="item.user != chatService.getLoggedInUser()">
+            </span>
+
+
+             <div class="message-data align-right">
+            <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
+            <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+
+          </div>
+          <div [class.message other-message float-right] = "item.user == chatService.getLoggedInUser()"
+          [class.message my-message] = "item.user != chatService.getLoggedInUser()"
+          class="">
+            {{item.message}}
+          </div>
+        </div>
+
+
+        </li>
+
+        <li>
+          <div class="message-data">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+            <span class="message-data-time">10:12 AM, Today</span>
+          </div>
+          <div class="message my-message">
+            Are we meeting today? Project has been already finished and I have results to show you.
+          </div>
+        </li>
+
+
+      </ul>
+
+    </div>
+
+    <div class="chat-message clearfix">
+      <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+
+      <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+      <i class="fa fa-file-image-o"></i>
+
+      <button>Send</button>
+
+    </div>
+
+  </div> -->
+
+<!-- </div>
+
+
+
+</div>
+</div> -->
+
